@@ -59,3 +59,9 @@ maven-deploy-release: java
 	mvn clean release:clean release:prepare release:perform -Dgpg.keyname=$(KEY_ID) -DperformRelease=true
 
 .PHONY: all clean cpp go java maven-deploy-snapshot maven-deploy-release python ruby
+
+
+PWD = $(shell pwd)
+
+goznly:
+	docker run --rm -v $(PWD):$(PWD) -w $(PWD) znly/protoc -I. --go_out=go/ metrics.proto
